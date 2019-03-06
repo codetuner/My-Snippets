@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+<_locDefinition xmlns="urn:locstudio">
+    <_locDefault _loc="locNone" />
+    <_locTag _loc="locData">Title</_locTag>
+    <_locTag _loc="locData">Description</_locTag>
+    <_locTag _loc="locData">Author</_locTag>
+    <_locTag _loc="locData">ToolTip</_locTag>
+</_locDefinition>
+	<CodeSnippet Format="1.0.0">
+	<Header>
+	<Title>My Insert with identity statements</Title>
+        <Shortcut>myinsertidentity</Shortcut>
+	<Description>Insert with identity statements.</Description>
+	<Author>Rudi Breedenraedt</Author>
+	<SnippetTypes>
+		<SnippetType>Expansion</SnippetType>
+	</SnippetTypes>
+	</Header>
+	<Snippet>
+		<Declarations>
+			<Literal>
+				<ID>SchemaName</ID>
+				<ToolTip>Name of the schema</ToolTip>
+				<Default>dbo</Default>
+			</Literal>
+			<Literal>
+				<ID>Tablename</ID>
+				<ToolTip>Name of the table</ToolTip>
+				<Default>Sample_Table</Default>
+			</Literal>
+			<Literal>
+				<ID>Columns</ID>
+				<ToolTip>Extra columns to insert</ToolTip>
+				<Default></Default>
+			</Literal>
+			<Literal>
+				<ID>ValuesTemplate</ID>
+				<ToolTip>Columns values template</ToolTip>
+				<Default></Default>
+			</Literal>
+		</Declarations>
+		<Code Language="SQL_SSDT">
+<![CDATA[SET IDENTITY_INSERT [$SchemaName$].[$Tablename$] ON
+INSERT INTO [$SchemaName$].[$Tablename$] ([Id], $Columns$) VALUES (1, $end$$ValuesTemplate$)
+INSERT INTO [$SchemaName$].[$Tablename$] ([Id], $Columns$) VALUES (2, $ValuesTemplate$)
+INSERT INTO [$SchemaName$].[$Tablename$] ([Id], $Columns$) VALUES (3, $ValuesTemplate$)
+SET IDENTITY_INSERT [$SchemaName$].[$Tablename$] OFF
+GO
+
+]]>
+		</Code>
+	</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

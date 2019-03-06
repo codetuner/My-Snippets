@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+<_locDefinition xmlns="urn:locstudio">
+    <_locDefault _loc="locNone" />
+    <_locTag _loc="locData">Title</_locTag>
+    <_locTag _loc="locData">Description</_locTag>
+    <_locTag _loc="locData">Author</_locTag>
+    <_locTag _loc="locData">ToolTip</_locTag>
+</_locDefinition>
+	<CodeSnippet Format="1.0.0">
+	<Header>
+	<Title>My Create Foreign Key Reference</Title>
+        <Shortcut>mycreateref</Shortcut>
+	<Description>Creates a foreign key reference.</Description>
+	<Author>Rudi Breedenraedt</Author>
+	<SnippetTypes>
+		<SnippetType>Expansion</SnippetType>
+	</SnippetTypes>
+	</Header>
+	<Snippet>
+		<Declarations>
+			<Literal>
+				<ID>SchemaName</ID>
+				<ToolTip>Name of the schema</ToolTip>
+				<Default>dbo</Default>
+			</Literal>
+			<Literal>
+				<ID>Tablename</ID>
+				<ToolTip>Name of the table</ToolTip>
+				<Default>Invoice</Default>
+			</Literal>
+			<Literal>
+				<ID>Rolename</ID>
+				<ToolTip>Name of the role</ToolTip>
+				<Default>Customer</Default>
+			</Literal>
+			<Literal>
+				<ID>ForeignKeyPostfix</ID>
+				<ToolTip>Postfix of the foreign key column</ToolTip>
+				<Default>Id</Default>
+			</Literal>
+			<Literal>
+				<ID>RefSchemaName</ID>
+				<ToolTip>Name of the referenced schema</ToolTip>
+				<Default>dbo</Default>
+			</Literal>
+			<Literal>
+				<ID>RefTablename</ID>
+				<ToolTip>Name of the referenced table</ToolTip>
+				<Default>Customer</Default>
+			</Literal>
+			<Literal>
+				<ID>PrimaryKey</ID>
+				<ToolTip>Name of the refered key column</ToolTip>
+				<Default>Id</Default>
+			</Literal>
+			<Literal>
+				<ID>OnUpdate</ID>
+				<ToolTip>ON UPDATE action (NO ACTION | CASCADE | SET NULL | SET DEFAULT)</ToolTip>
+				<Default>NO ACTION</Default>
+			</Literal>
+			<Literal>
+				<ID>OnDelete</ID>
+				<ToolTip>ON DELETE action (NO ACTION | CASCADE | SET NULL | SET DEFAULT)</ToolTip>
+				<Default>NO ACTION</Default>
+			</Literal>
+		</Declarations>
+		<Code Language="SQL_SSDT">
+<![CDATA[-- ------------------------------------------------------------
+-- CREATE REFERENCE [$SchemaName$].[$Tablename$] ---<$Rolename$>---> [$RefSchemaName$].[$RefTablename$]
+-- ------------------------------------------------------------
+
+-- Create an index on the foreign key column:
+CREATE NONCLUSTERED INDEX [IX_$Tablename$_$Rolename$$ForeignKeyPostfix$] ON [$SchemaName$].[$Tablename$] ([$Rolename$$ForeignKeyPostfix$] ASC)
+GO
+
+-- Create the foreign key constraint and check it for existing data:
+ALTER TABLE [$SchemaName$].[$Tablename$]  WITH CHECK ADD CONSTRAINT [FK_$Tablename$_$Rolename$] FOREIGN KEY([$Rolename$$ForeignKeyPostfix$])
+REFERENCES [$RefSchemaName$].[$RefTablename$] ([$PrimaryKey$])
+  ON UPDATE $OnUpdate$
+  ON DELETE $OnDelete$
+GO
+
+-- Enable the constraint for future data:
+ALTER TABLE [$SchemaName$].[$Tablename$] CHECK CONSTRAINT [FK_$Tablename$_$Rolename$]
+GO
+
+$end$]]>
+		</Code>
+	</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

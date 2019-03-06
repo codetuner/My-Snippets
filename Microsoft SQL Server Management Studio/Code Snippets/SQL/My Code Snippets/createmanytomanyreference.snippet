@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+<_locDefinition xmlns="urn:locstudio">
+    <_locDefault _loc="locNone" />
+    <_locTag _loc="locData">Title</_locTag>
+    <_locTag _loc="locData">Description</_locTag>
+    <_locTag _loc="locData">Author</_locTag>
+    <_locTag _loc="locData">ToolTip</_locTag>
+</_locDefinition>
+	<CodeSnippet Format="1.0.0">
+	<Header>
+	<Title>My Create Many to Many Reference Table</Title>
+        <Shortcut>mycreatemanyref</Shortcut>
+	<Description>Creates a many to many reference table.</Description>
+	<Author>Rudi Breedenraedt</Author>
+	<SnippetTypes>
+		<SnippetType>Expansion</SnippetType>
+	</SnippetTypes>
+	</Header>
+	<Snippet>
+		<Declarations>
+			<Literal>
+				<ID>SchemaName</ID>
+				<ToolTip>Name of the schema</ToolTip>
+				<Default>dbo</Default>
+			</Literal>
+			<Literal>
+				<ID>Tablename</ID>
+				<ToolTip>Name of the table</ToolTip>
+				<Default>Invoice</Default>
+			</Literal>
+			<Literal>
+				<ID>PrimaryKey</ID>
+				<ToolTip>Name of the refered key column</ToolTip>
+				<Default>Id</Default>
+			</Literal>
+			<Literal>
+				<ID>Rolename</ID>
+				<ToolTip>Name of the role</ToolTip>
+				<Default>Customer</Default>
+			</Literal>
+			<Literal>
+				<ID>ForeignKeyPostfix</ID>
+				<ToolTip>Postfix of the foreign key column</ToolTip>
+				<Default>Id</Default>
+			</Literal>
+			<Literal>
+				<ID>RefSchemaName</ID>
+				<ToolTip>Name of the referenced schema</ToolTip>
+				<Default>dbo</Default>
+			</Literal>
+			<Literal>
+				<ID>RefTablename</ID>
+				<ToolTip>Name of the referenced table</ToolTip>
+				<Default>Customer</Default>
+			</Literal>
+			<Literal>
+				<ID>RefPrimaryKey</ID>
+				<ToolTip>Name of the referred key column of the referenced table</ToolTip>
+				<Default>Id</Default>
+			</Literal>
+			<Literal>
+				<ID>OnUpdate1</ID>
+				<ToolTip>ON UPDATE action (NO ACTION | CASCADE | SET NULL | SET DEFAULT)</ToolTip>
+				<Default>NO ACTION</Default>
+			</Literal>
+			<Literal>
+				<ID>OnDelete1</ID>
+				<ToolTip>ON DELETE action (NO ACTION | CASCADE | SET NULL | SET DEFAULT)</ToolTip>
+				<Default>NO ACTION</Default>
+			</Literal>
+			<Literal>
+				<ID>OnUpdate2</ID>
+				<ToolTip>ON UPDATE action (NO ACTION | CASCADE | SET NULL | SET DEFAULT)</ToolTip>
+				<Default>NO ACTION</Default>
+			</Literal>
+			<Literal>
+				<ID>OnDelete2</ID>
+				<ToolTip>ON DELETE action (NO ACTION | CASCADE | SET NULL | SET DEFAULT)</ToolTip>
+				<Default>NO ACTION</Default>
+			</Literal>
+		</Declarations>
+		<Code Language="SQL">
+<![CDATA[-- ------------------------------------------------------------
+-- CREATE REFERENCE [$SchemaName$].[$Tablename$] ---<$Rolename$>---> [$RefSchemaName$].[$RefTablename$]
+-- ------------------------------------------------------------
+
+-- Create many-to-many reference table:
+CREATE TABLE [$SchemaName$].[$Tablename$_$Rolename$]
+(
+	[$Tablename$$ForeignKeyPostfix$] int NOT NULL,
+	[$RefTablename$$ForeignKeyPostfix$] int NOT NULL,
+	CONSTRAINT [PK_$Tablename$_$Rolename$] PRIMARY KEY CLUSTERED ([$Tablename$$ForeignKeyPostfix$] ASC, [$RefTablename$$ForeignKeyPostfix$] ASC)
+) ON [PRIMARY]
+GO
+
+-- Create the foreign key constraint and check it for existing data:
+ALTER TABLE [$SchemaName$].[$Tablename$_$Rolename$] WITH CHECK ADD CONSTRAINT [FK_$Tablename$_$Rolename$_$Tablename$] FOREIGN KEY([$Tablename$$ForeignKeyPostfix$])
+REFERENCES [$SchemaName$].[$Tablename$] ([$PrimaryKey$])
+  ON UPDATE $OnUpdate1$
+  ON DELETE $OnDelete1$
+GO
+
+ALTER TABLE [$SchemaName$].[$Tablename$_$Rolename$] WITH CHECK ADD CONSTRAINT [FK_$Tablename$_$Rolename$_$Rolename$] FOREIGN KEY([$RefTablename$$ForeignKeyPostfix$])
+REFERENCES [$RefSchemaName$].[$RefTablename$] ([$RefPrimaryKey$])
+  ON UPDATE $OnUpdate2$
+  ON DELETE $OnDelete2$
+GO
+
+-- Enable the constraint for future data:
+ALTER TABLE [$SchemaName$].[$Tablename$_$Rolename$] CHECK CONSTRAINT [FK_$Tablename$_$Rolename$_$Tablename$]
+GO
+
+ALTER TABLE [$SchemaName$].[$Tablename$_$Rolename$] CHECK CONSTRAINT [FK_$Tablename$_$Rolename$_$Rolename$]
+GO
+
+$end$]]>
+		</Code>
+	</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+<_locDefinition xmlns="urn:locstudio">
+    <_locDefault _loc="locNone" />
+    <_locTag _loc="locData">Title</_locTag>
+    <_locTag _loc="locData">Description</_locTag>
+    <_locTag _loc="locData">Author</_locTag>
+    <_locTag _loc="locData">ToolTip</_locTag>
+</_locDefinition>
+	<CodeSnippet Format="1.0.0">
+	<Header>
+	<Title>My Create Index</Title>
+        <Shortcut>mycreateindex</Shortcut>
+	<Description>Creates an index.</Description>
+	<Author>Rudi Breedenraedt</Author>
+	<SnippetTypes>
+		<SnippetType>Expansion</SnippetType>
+	</SnippetTypes>
+	</Header>
+	<Snippet>
+		<Declarations>
+			<Literal>
+				<ID>SchemaName</ID>
+				<ToolTip>Name of the schema</ToolTip>
+				<Default>dbo</Default>
+			</Literal>
+			<Literal>
+				<ID>Tablename</ID>
+				<ToolTip>Name of the table</ToolTip>
+				<Default>Sample_Table</Default>
+			</Literal>
+			<Literal>
+				<ID>Columnname</ID>
+				<ToolTip>Name of the column</ToolTip>
+				<Default>Sample_Column</Default>
+			</Literal>
+			<Literal>
+				<ID>Uniqueness</ID>
+				<ToolTip>UNIQUE or empty</ToolTip>
+				<Default>UNIQUE</Default>
+			</Literal>
+		</Declarations>
+		<Code Language="SQL_SSDT">
+<![CDATA[-- ------------------------------------------------------------
+-- CREATE INDEX [$SchemaName$].[IX_$Tablename$_$Columnname$]
+-- ------------------------------------------------------------
+CREATE $Uniqueness$ NONCLUSTERED INDEX [IX_$Tablename$_$Columnname$] ON [$SchemaName$].[$Tablename$] ([$Columnname$] ASC)
+GO
+
+$end$]]>
+		</Code>
+	</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+
