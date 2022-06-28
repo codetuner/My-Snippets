@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Bootstrap 3 Modal</Title>
+			<Author>Rudi Breedenraedt</Author>
+			<Shortcut>bs3modal</Shortcut>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>title</ID>
+					<ToolTip>Title of the modal</ToolTip>
+					<Default>My Modal</Default>
+				</Literal>
+				<Literal>
+					<ID>closecmd</ID>
+					<ToolTip>Label of the Close button</ToolTip>
+					<Default>Close</Default>
+				</Literal>
+				<Literal>
+					<ID>savecmd</ID>
+					<ToolTip>Label of the Save button</ToolTip>
+					<Default>Save</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="HTML"><![CDATA[<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">$title$</h4>
+            </div>
+            <div class="modal-body">
+                $selected$$end$
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">$closecmd$</button>
+                <button type="button" class="btn btn-primary">$savecmd$</button>
+            </div>
+        </div>
+    </div>
+</div>
+]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
