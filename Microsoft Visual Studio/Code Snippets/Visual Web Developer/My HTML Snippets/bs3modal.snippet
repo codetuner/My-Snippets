@@ -13,6 +13,16 @@
 		<Snippet>
 			<Declarations>
 				<Literal>
+					<ID>modalid</ID>
+					<ToolTip>Id of the modal</ToolTip>
+					<Default>myModal</Default>
+				</Literal>
+				<Literal>
+					<ID>launchmodalcmd</ID>
+					<ToolTip>Label of the launch button</ToolTip>
+					<Default>Launch my modal</Default>
+				</Literal>
+				<Literal>
 					<ID>title</ID>
 					<ToolTip>Title of the modal</ToolTip>
 					<Default>My Modal</Default>
@@ -28,7 +38,11 @@
 					<Default>Save</Default>
 				</Literal>
 			</Declarations>
-			<Code Language="HTML"><![CDATA[<div class="modal fade" tabindex="-1" role="dialog">
+			<Code Language="HTML"><![CDATA[<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#$modalid$">
+  $launchmodalcmd$
+</button>
+
+<div id="$modalid$" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
