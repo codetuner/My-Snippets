@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+	<Header>
+	<Title>My Localized Create Table</Title>
+        <Shortcut>mycreatelocalizedtable</Shortcut>
+	<Description>Creates a table for localized properties.</Description>
+	<Author>Rudi Breedenraedt</Author>
+	<SnippetTypes>
+		<SnippetType>Expansion</SnippetType>
+	</SnippetTypes>
+	</Header>
+	<Snippet>
+		<Declarations>
+			<Literal>
+				<ID>SchemaName</ID>
+				<ToolTip>Name of the schema</ToolTip>
+				<Default>dbo</Default>
+			</Literal>
+			<Literal>
+				<ID>Tablename</ID>
+				<ToolTip>Name of the table</ToolTip>
+				<Default>Sample_Table</Default>
+			</Literal>
+			<Literal>
+				<ID>Key</ID>
+				<ToolTip>Role name of the referencing column</ToolTip>
+				<Default>Entity</Default>
+			</Literal>
+			<Literal>
+				<ID>KeyPostfix</ID>
+				<ToolTip>Postfix of the foreign key column</ToolTip>
+				<Default>Id</Default>
+			</Literal>
+		</Declarations>
+		<Code Language="SQL_SSDT">
+<![CDATA[-- ------------------------------------------------------------
+-- CREATE TABLE [$SchemaName$].[$Tablename$Localized]
+-- ------------------------------------------------------------
+CREATE TABLE [$SchemaName$].[$Tablename$Localized]
+(
+    [$Key$$KeyPostfix$] int NOT NULL,
+	[LanguageCode] char(2) NOT NULL,
+	[Name] nvarchar(200) NOT NULL,
+	[Description] nvarchar(max) NULL,
+	$end$
+	CONSTRAINT [PK_$Tablename$Localized] PRIMARY KEY CLUSTERED ([$Key$$KeyPostfix$] ASC, [LanguageCode] ASC)
+) ON [PRIMARY]
+GO
+
+-- ------------------------------------------------------------
+-- CREATE REFERENCE [$SchemaName$].[$Tablename$Localized] ---<$Key$>---> [$SchemaName$].[$Tablename$]
+-- ------------------------------------------------------------
+
+-- Create an index on the foreign key column:
+CREATE NONCLUSTERED INDEX [IX_$Tablename$Localized_$Key$$KeyPostfix$] ON [$SchemaName$].[$Tablename$Localized] ([$Key$$KeyPostfix$] ASC)
+GO
+
+-- Create the foreign key constraint and check it for existing data:
+ALTER TABLE [$SchemaName$].[$Tablename$Localized] WITH CHECK ADD CONSTRAINT [FK_$Tablename$Localized_$Key$] FOREIGN KEY([$Key$$KeyPostfix$])
+REFERENCES [$SchemaName$].[$Tablename$] ([$KeyPostfix$])
+  ON UPDATE CASCADE
+  ON DELETE CASCADE
+GO
+
+-- Enable the constraint for future data:
+ALTER TABLE [$SchemaName$].[$Tablename$Localized] CHECK CONSTRAINT [FK_$Tablename$Localized_$Key$]
+GO
+
+]]>
+		</Code>
+	</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+

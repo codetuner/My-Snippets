@@ -75,7 +75,7 @@ CREATE NONCLUSTERED INDEX [IX_$Tablename$_$Rolename$$ForeignKeyPostfix$] ON [$Sc
 GO
 
 -- Create the foreign key constraint and check it for existing data:
-ALTER TABLE [$SchemaName$].[$Tablename$]  WITH CHECK ADD CONSTRAINT [FK_$Tablename$_$Rolename$] FOREIGN KEY([$Rolename$$ForeignKeyPostfix$])
+ALTER TABLE [$SchemaName$].[$Tablename$] WITH CHECK ADD CONSTRAINT [FK_$Tablename$_$Rolename$] FOREIGN KEY([$Rolename$$ForeignKeyPostfix$])
 REFERENCES [$RefSchemaName$].[$RefTablename$] ([$PrimaryKey$])
   ON UPDATE $OnUpdate$
   ON DELETE $OnDelete$

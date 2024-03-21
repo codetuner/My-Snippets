@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>fprop</Title>
+			<Shortcut>fprop</Shortcut>
+			<Description>Code snippet for a foreign key property.</Description>
+			<Author>Rudi Breedenraedt</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>type</ID>
+					<ToolTip>Property type</ToolTip>
+					<Default>Object</Default>
+				</Literal>
+				<Literal>
+					<ID>property</ID>
+					<ToolTip>Property name</ToolTip>
+					<Default>MyProperty</Default>
+				</Literal>
+				<Literal>
+					<ID>initializer</ID>
+					<ToolTip>Initializer expression</ToolTip>
+					<Default> = null!;</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[public virtual int? $property$Id { get; set; }
+
+		[ForeignKey(nameof($property$Id))]
+		public virtual $type$? $property$ { get; set; }$initializer$$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
