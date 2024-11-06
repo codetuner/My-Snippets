@@ -1,2 +1,2 @@
 @ECHO OFF
-XCOPY "%~dp0Code Snippets" "%USERPROFILE%\Documents\Visual Studio 2015\Code Snippets" /s /e
+XCOPY "%~dp0Code Snippets" "%USERPROFILE%\Documents\SQL Server Management Studio\Code Snippets" /s /e
