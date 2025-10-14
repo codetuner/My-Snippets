@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+	<Header>
+	<Title>My Format Number</Title>
+        <Shortcut>myformatnumber</Shortcut>
+	<Description>Formats a decimal number.</Description>
+	<Author>Rudi Breedenraedt</Author>
+	<SnippetTypes>
+		<SnippetType>Expansion</SnippetType>
+	</SnippetTypes>
+	</Header>
+	<Snippet>
+		<Declarations>
+			<Literal>
+				<ID>Culture</ID>
+				<ToolTip>Culture to format in</ToolTip>
+				<Default>en-BE</Default>
+			</Literal>
+		</Declarations>
+		<Code Language="SQL">
+<![CDATA[FORMAT($selected$, '#,##0.00', '$Culture$')$end$]]>
+		</Code>
+	</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
+
