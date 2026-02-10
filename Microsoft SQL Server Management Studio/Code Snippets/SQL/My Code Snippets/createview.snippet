@@ -27,11 +27,7 @@
 <![CDATA[-- ------------------------------------------------------------
 -- CREATE VIEW [$SchemaName$].[$Viewname$]
 -- ------------------------------------------------------------
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[$SchemaName$].[$Viewname$]') AND type in (N'V'))
-   EXECUTE ('CREATE VIEW [$SchemaName$].[$Viewname$] AS SELECT 0 AS Dummy')
-GO
-
-ALTER VIEW [$SchemaName$].[$Viewname$]
+CREATE OR ALTER VIEW [$SchemaName$].[$Viewname$]
 AS
 SELECT
 	$end$

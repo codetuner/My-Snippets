@@ -34,12 +34,7 @@
 <![CDATA[-- ======================================================================================================
 -- StoredProcedure: [$SchemaName$].[$Procname$]
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[$SchemaName$].[$Procname$]') AND type in (N'P', N'PC'))
-   EXECUTE ('CREATE PROCEDURE [$SchemaName$].[$Procname$] AS SELECT 0')
-GO
-
-
-ALTER PROCEDURE [$SchemaName$].[$Procname$]
+CREATE OR ALTER PROCEDURE [$SchemaName$].[$Procname$]
 AS
 BEGIN
    $end$
